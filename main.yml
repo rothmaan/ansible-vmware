@@ -1,0 +1,37 @@
+---
+- name: Create a new VMs on an ESXi server
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Create new VMs on ESXi
+      vmware_guest:
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_username }}'
+        password: '{{ vcenter_password }}'
+        validate_certs: no
+        folder: '{{ vm_folder }}'
+        name: "{{ item.name }}"
+        state: '{{ vm_state }}'
+        datacenter: '{{ vm_datacenter }}'
+        cluster: '{{ vm_cluster }}'
+        resource_pool: '{{ vm_resource_pool }}'
+        datastore: '{{ vm_datastore }}'
+        guest_id: '{{ vm_guest_id }}'
+        disk:
+          - size_gb: "{{ item.disk_size_gb }}"
+            type: '{{ vm_disk_type }}'
+            datastore: '{{ vm_datastore }}'
+        hardware:
+          memory_mb: "{{ item.memory_mb }}"
+          num_cpus: "{{ item.num_cpus }}"
+          scsi: '{{ vm_scsi }}'
+        networks:
+          - name: '{{ vm_network }}'
+        wait_for_ip_address: yes
+      loop: "{{ vms }}"
+      register: deploy_vm
+
+    - debug: var=deploy_vm
+
