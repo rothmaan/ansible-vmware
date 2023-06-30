@@ -1,35 +1,20 @@
-vcenter_hostname: 'your_vcenter_hostname'
-vcenter_username: 'your_vcenter_username'
-vcenter_password: 'your_vcenter_password'
-vm_folder: '/vm'
-vm_state: poweredon
-vm_datacenter: 'DC1'
-vm_cluster: 'DC1_C1'
-vm_resource_pool: 'Resources'
-vm_datastore: 'datastore1'
-vm_guest_id: 'rhel7_64Guest'
-vm_disk_type: 'thin'
-vm_scsi: 'paravirtual'
-vm_network: 'VM Network'
-vms:
-  - name: test_vm_01
-    memory_mb: 512
-    num_cpus: 2
-    disk_size_gb: 10
-  - name: test_vm_02
-    memory_mb: 1024
-    num_cpus: 2
-    disk_size_gb: 20
-  - name: test_vm_03
-    memory_mb: 512
-    num_cpus: 2
-    disk_size_gb: 30
-  - name: test_vm_04
-    memory_mb: 1024
-    num_cpus: 2
-    disk_size_gb: 40
-  - name: test_vm_05
-    memory_mb: 512
-    num_cpus: 2
-    disk_size_gb: 50
-
+vars:
+  vcenter_hostname: 'your_vcenter_hostname'
+  vcenter_username: 'your_vcenter_username'
+  vcenter_password: 'your_vcenter_password'
+  vm_folder: '/vm'
+  vm_state: poweredon
+  # vm_datacenter: 'DC1'
+  vm_cluster: 'DC1_C1'
+  vm_resource_pool: 'Resources'
+  vm_datastore: 'datastore1'
+  vm_guest_id: 'rhel8_64Guest'
+  vm_disk_type: 'thick'
+  vm_scsi: 'paravirtual'
+  vm_network: 'VM Network'
+  vm_nic: 'VMXNET3'
+  vms:
+    - name: test_vm_001
+      memory_mb: 512
+      num_cpus: 2
+      disk_size_gb: 10
