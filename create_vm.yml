@@ -1,5 +1,5 @@
 ---
-- name: Create a new VMs on an ESXi server
+- name: Create new VMs on an ESXi server
   hosts: localhost
   gather_facts: no
   vars_files:
@@ -14,7 +14,7 @@
         folder: '{{ vm_folder }}'
         name: "{{ item.name }}"
         state: '{{ vm_state }}'
-        # datacente: '{{ vm_datacenter }}'
+        # datacenter: '{{ vm_datacenter }}'
         cluster: '{{ vm_cluster }}'
         resource_pool: '{{ vm_resource_pool }}'
         datastore: '{{ vm_datastore }}'
@@ -29,7 +29,7 @@
           scsi: '{{ vm_scsi }}'
         networks:
           - name: '{{ vm_network }}'
-            device_name: '{{vm_net_type}}'
+            device_type: '{{ vm_nic }}'
         customization:
           hostname: "{{ item.name }}"
       loop: "{{ vms }}"
