@@ -14,7 +14,7 @@
         folder: '{{ vm_folder }}'
         name: "{{ item.name }}"
         state: '{{ vm_state }}'
-        datacenter: '{{ vm_datacenter }}'
+        # datacente: '{{ vm_datacenter }}'
         cluster: '{{ vm_cluster }}'
         resource_pool: '{{ vm_resource_pool }}'
         datastore: '{{ vm_datastore }}'
@@ -29,13 +29,8 @@
           scsi: '{{ vm_scsi }}'
         networks:
           - name: '{{ vm_network }}'
-            ip: "{{ item.ip }}"
-            netmask: '{{ vm_netmask }}'
-            gateway: '{{ vm_gateway }}'
-            domain: '{{ vm_domain }}'
-            dns_servers: '{{ vm_dns_servers }}'
+            device_name: '{{vm_net_type}}'
         customization:
           hostname: "{{ item.name }}"
-          domain: '{{ vm_customization_domain }}'
       loop: "{{ vms }}"
       register: deploy
