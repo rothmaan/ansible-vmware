@@ -1,3 +1,4 @@
+```
 This Ansible playbook automates the migration of a VM from VMware vCenter to OpenShift Virtualization. It performs the following tasks:
 
 1. Gathers information about the specified VMware VM.
@@ -12,16 +13,17 @@ ansible-galaxy collection install community.vmware
 ansible-galaxy collection install community.general
 pip install openshift pyvmomi
 
-tree vm_migration
+
+# VM Migration
+
+This project contains an Ansible role for migrating VMs from VMware vCenter to OpenShift Virtualization.
+
+## Project Structure
 vm_migration
-├── README.md           # Documentation file providing an overview and instructions for the role
+├── README.md # Documentation file providing an overview and instructions for the role
 ├── defaults
-│   └── main.yml        # Default variables for the role with placeholders for vCenter details and VM name
+│ └── main.yml # Default variables for the role with placeholders for vCenter details and VM name
 ├── tasks
-│   └── main.yml        # Main tasks file containing the sequence of actions to gather VM info, create and execute migration plan, and monitor progress
+│ └── main.yml # Main tasks file containing the sequence of actions to gather VM info, create and execute migration plan, and monitor progress
 └── vars
-    └── main.yml        # Specific variables for the role, including vCenter details and the name of the VM to migrate
-
-
-ansible-playbook -i localhost, playbook.yml -e @vars.yml
-
+└── main.yml # Specific variables for the role, including vCenter details and the name of the VM to migrate
