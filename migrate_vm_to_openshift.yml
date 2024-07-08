@@ -1,0 +1,7 @@
+---
+- name: Migrate VMs from VMware to OpenShift Virtualization
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: vm_migration
+

@@ -12,7 +12,7 @@ ansible-galaxy collection install community.vmware
 ansible-galaxy collection install community.general
 pip install openshift pyvmomi
 
-tree vm_migration 
+tree vm_migration
 vm_migration
 ├── README.md           # Documentation file providing an overview and instructions for the role
 ├── defaults

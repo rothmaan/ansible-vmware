@@ -1,0 +1,6 @@
+[vmware]
+vmware_vcenter ansible_host=<vcenter_host> ansible_user=<vcenter_user> ansible_password=<vcenter_password>
+
+[openshift]
+openshift_host ansible_host=<openshift_host_ip> ansible_user=<openshift_user> ansible_password=<openshift_password>
+

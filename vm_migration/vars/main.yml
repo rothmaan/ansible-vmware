@@ -1,0 +1,8 @@
+vcenter_host: "https://your-vcenter-url/sdk"
+vcenter_user: "your_vcenter_user"
+vcenter_password: "your_vcenter_password"
+vm_name: "your_vm_name"
+openshift_host: "your_openshift_host"
+openshift_user: "your_openshift_user"
+openshift_password: "your_openshift_password"
+

@@ -1,0 +1,9 @@
+---
+vcenter_host: ""
+vcenter_user: ""
+vcenter_password: ""
+vm_name: ""
+openshift_host: ""
+openshift_user: ""
+openshift_password: ""
+

@@ -1,0 +1,65 @@
+---
+- name: Gather VMware VM information
+  community.vmware.vmware_guest_info:
+    hostname: "{{ vcenter_host }}"  # VMware vCenter host
+    username: "{{ vcenter_user }}"  # VMware vCenter username
+    password: "{{ vcenter_password }}"  # VMware vCenter password
+    validate_certs: no  # Skip SSL certificate validation
+    name: "{{ vm_name }}"  # Name of the VM to gather info for
+  register: vm_info  # Register the gathered info for later use
+
+- name: Create a migration plan
+  k8s:
+    state: present
+    definition:
+      apiVersion: forklift.konveyor.io/v1beta1
+      kind: Plan
+      metadata:
+        name: "iptf-plan"  # Name of the migration plan
+        namespace: iptf  # Namespace for the migration plan
+      spec:
+        provider:
+          source:
+            name: vcenter  # Source provider name
+            namespace: iptf  # Source provider namespace
+          destination:
+            name: openshift  # Destination provider name
+            namespace: iptf  # Destination provider namespace
+        vms:
+          - name: "{{ vm_name }}"  # Name of the VM to migrate
+        map:
+          network:
+            name: default
+            namespace: iptf  # Network mapping namespace
+          storage:
+            name: default
+            namespace: iptf  # Storage mapping namespace
+  when: vm_info is succeeded  # Proceed only if VM information is successfully gathered
+
+- name: Execute the migration plan
+  k8s:
+    state: present
+    definition:
+      apiVersion: forklift.konveyor.io/v1beta1
+      kind: Migration
+      metadata:
+        name: "{{ vm_name }}-migration"  # Name of the migration
+        namespace: iptf  # Namespace for the migration
+      spec:
+        plan:
+          name: "iptf-plan"  # Name of the migration plan to execute
+          namespace: iptf  # Namespace for the migration plan
+  when: vm_info is succeeded  # Proceed only if VM information is successfully gathered
+
+- name: Monitor migration progress
+  k8s_info:
+    api_version: forklift.konveyor.io/v1beta1
+    kind: Migration
+    name: "{{ vm_name }}-migration"  # Name of the migration to monitor
+    namespace: iptf  # Namespace for the migration
+  register: migration_status  # Register the migration status for later use
+  until: migration_status.resources[0].status.conditions[0].type == "Succeeded"
+  retries: 30  # Number of retries
+  delay: 60  # Delay between retries in seconds
+  when: vm_info is succeeded  # Proceed only if VM information is successfully gathered
+
