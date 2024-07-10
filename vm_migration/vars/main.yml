@@ -5,4 +5,3 @@ vm_name: "your_vm_name"
 openshift_host: "your_openshift_host"
 openshift_user: "your_openshift_user"
 openshift_password: "your_openshift_password"
-
